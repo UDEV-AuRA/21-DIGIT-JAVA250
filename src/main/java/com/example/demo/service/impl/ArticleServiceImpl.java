@@ -8,10 +8,10 @@ import com.example.demo.service.mapper.ArticleMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
 
 /**
  * Service contenant les actions métiers liées aux articles.
@@ -30,7 +30,19 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleDto> findAll() {
-        return articleRepository.findAll().stream().map(article -> articleMapper.articleDto(article)).collect(toList());
+        List<Article> articles = articleRepository.findAll();
+
+        List<ArticleDto> articleDtos = new ArrayList<>();
+        for (Article article : articles) {
+            ArticleDto articleDto = articleMapper.articleDto(article);
+            articleDtos.add(articleDto);
+        }
+        return articleDtos;
+
+       // return articles
+       //         .stream()
+       //         .map(article -> articleMapper.articleDto(article))
+       //         .collect(Collectors.toList());
     }
 
 }

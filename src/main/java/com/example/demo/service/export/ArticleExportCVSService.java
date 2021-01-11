@@ -13,9 +13,9 @@ public class ArticleExportCVSService {
     private ArticleRepository articleRepository;
 
     public void export(PrintWriter writer) {
+        articleRepository.findAll();
         writer.println("Hello;World");
         writer.println("guten tag");
     }
-
 
 }

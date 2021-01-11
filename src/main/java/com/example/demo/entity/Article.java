@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Entity représentant un article.
  */
-@Entity
+@Entity(name = "article")
 public class Article {
 
     @Id

@@ -31,6 +31,9 @@ public class HomeController {
         // et "stockage" dans une variable nommé "articles"
         modelAndView.addObject("articles", articles);
 
+        List<Object> clients = null; // TODO
+        modelAndView.addObject("clients", clients);
+
         return modelAndView;
     }
 

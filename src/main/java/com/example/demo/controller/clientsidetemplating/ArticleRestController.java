@@ -2,7 +2,6 @@ package com.example.demo.controller.clientsidetemplating;
 
 import com.example.demo.dto.ArticleDto;
 import com.example.demo.service.ArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +15,11 @@ import java.util.List;
 @RequestMapping("rest/articles")
 public class ArticleRestController {
 
-    @Autowired
     private ArticleService articleService;
+
+    public ArticleRestController(ArticleService articleService) {
+        this.articleService = articleService;
+    }
 
     /**
      * Exposition d'une api déclenchée sur l'url http://..../articles.
