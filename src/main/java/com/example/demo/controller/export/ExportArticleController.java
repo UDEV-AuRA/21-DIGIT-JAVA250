@@ -1,6 +1,7 @@
 package com.example.demo.controller.export;
 
 import com.example.demo.service.export.ArticleExportCVSService;
+import com.example.demo.service.export.ArticleExportPDFService;
 import com.example.demo.service.export.ArticleExportXLSXService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,9 @@ public class ExportArticleController {
     @Autowired
     private ArticleExportXLSXService articleExportXLSXService;
 
+    @Autowired
+    private ArticleExportPDFService articleExportPDFService;
+
     /**
      * Export des articles au format CSV.
      */
@@ -46,7 +50,17 @@ public class ExportArticleController {
         articleExportXLSXService.export(outputStream);
     }
 
-    /** Méthode utilisée pour l'export facture (point n°5) */
+    @GetMapping("/articles/pdf")
+    public void articlesPDF(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=\"export-articles.pdf\"");
+        OutputStream outputStream = response.getOutputStream();
+        articleExportPDFService.export(outputStream);
+    }
+
+    /**
+     * Méthode utilisée pour l'export facture (point n°5)
+     */
     @GetMapping("/clients/{id}/factures/xlsx")
     public void clientGetFacturesXLSX(@PathVariable Long id, HttpServletResponse response) throws IOException {
         response.setContentType("application/vnd.ms-excel");
